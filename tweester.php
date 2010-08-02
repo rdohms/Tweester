@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: TwePort
+Plugin Name: Tweester
 Plugin URI: --
 Description: This plugin allows you to show a page of people who supported your cause on twitter.
 Version: 0.1
@@ -9,10 +9,10 @@ Author URI: http://www.rafaeldohms.com.br
 License: CC
 */
 
-register_activation_hook( __FILE__, array('TwePort', 'activateSelf') );
-add_filter('init', array('TwePort','init'));
+register_activation_hook( __FILE__, array('Tweester', 'activateSelf') );
+add_filter('init', array('Tweester','init'));
 
-class TwePort
+class Tweester
 {
 	private $db;
 	
@@ -27,37 +27,37 @@ class TwePort
 		
 		$this->db = $wpdb;
 		
-		$this->suppTableName = $this->db->prefix . "tweport_supporters";
-		$this->dataCacheTableName = $this->db->prefix . "tweport_data_cache";
+		$this->suppTableName = $this->db->prefix . "tweester_supporters";
+		$this->dataCacheTableName = $this->db->prefix . "tweester_data_cache";
 		
 		$this->pluginPath = get_option('siteurl')."/wp-content/plugins/".dirname(plugin_basename(__FILE__));
 	}
 	
     public static function init()
     {
-		$tw = new TwePort();
+		$tw = new Tweester();
 
-        add_shortcode('tweport_list', array($tw, 'shortCodeList'));
+        add_shortcode('tweester_list', array($tw, 'shortCodeList'));
         add_action('admin_init', array($tw, 'initPluginSettings'));
 		add_action('admin_menu', array($tw, 'initPluginSettingsMenu'));
 		
 		add_action("wp_head",array($tw,'renderStyleSheets'));
-		add_action("tweport_searcher", array($tw, 'executeSearch'));
+		add_action("tweester_searcher", array($tw, 'executeSearch'));
 		
     }
 
     public static function activateSelf()
     {
-		$tw = new TwePort();
+		$tw = new Tweester();
 		$tw->initTables();
 		
-		if (!wp_next_scheduled('tweport_searcher')) {
-			wp_schedule_event( time(),  'hourly', 'tweport_searcher' );
+		if (!wp_next_scheduled('tweester_searcher')) {
+			wp_schedule_event( time(),  'hourly', 'tweester_searcher' );
 		}
 
     }
 
-    // [tweport_list foo="foo-value"]
+    // [tweester_list foo="foo-value"]
     public function shortCodeList($atts) 
     {
         //extract(shortcode_atts(array('foo' => 'something','bar' => 'something else'), $atts));
@@ -79,14 +79,14 @@ class TwePort
 
     function initPluginSettingsMenu() 
 	{
-		add_options_page('Tweport - Options', 'TwePort', 'administrator', __FILE__, array($this, 'renderSettingsPage'));
+		add_options_page('Tweport - Options', 'Tweester', 'administrator', __FILE__, array($this, 'renderSettingsPage'));
 	}
 	
     function initPluginSettings() 
 	{
-        add_settings_section('tweport_config', 'Search', array($this, 'settingsSectionInit'), __FILE__);
-        add_settings_field('tweport_query', 'Query to find supporters', array($this, 'settingsQueryFieldCallback'), __FILE__, 'tweport_config');
-        register_setting(__FILE__,'tweport_query');
+        add_settings_section('tweester_config', 'Search', array($this, 'settingsSectionInit'), __FILE__);
+        add_settings_field('tweester_query', 'Query to find supporters', array($this, 'settingsQueryFieldCallback'), __FILE__, 'tweester_config');
+        register_setting(__FILE__,'tweester_query');
     }
 
 
@@ -127,19 +127,19 @@ class TwePort
 
     function settingsQueryFieldCallback() 
     {
-        echo "<input name='tweport_query' id='gv_thumbnails_insert_into_excerpt' type='text' value='".get_option('tweport_query')."' class='code' />";
+        echo "<input name='tweester_query' id='gv_thumbnails_insert_into_excerpt' type='text' value='".get_option('tweester_query')."' class='code' />";
      } 
 
 	public function renderStyleSheets()
 	{
-		echo '<link rel="stylesheet" href="'.$this->pluginPath.'/tweport.css'.'" type="text/css" media="screen" />';
+		echo '<link rel="stylesheet" href="'.$this->pluginPath.'/tweester.css'.'" type="text/css" media="screen" />';
 	}
 
 	function renderSettingsPage()
 	{
 		
 		echo '<div>';
-		echo '<h2>TwePort</h2>';
+		echo '<h2>Tweester</h2>';
 		echo 'Options relating to the Custom Plugin.';
 		echo '<form action="options.php" method="post">';
 		
@@ -157,11 +157,11 @@ class TwePort
 		$html = "";
 		foreach($list as $user){
 
-			$html .= "<div class='tweport_div'>";
-			$html .= "<img src='".$user->profile_image_url."' class='tweport_img'>";
-			$html .= "<p class='tweport_name'>".$user->name."</p>";
-			$html .= "<p class='tweport_bio'>".$user->description."</p>";
-			$html .= "<p class='tweport_url'><a href='".$user->url."'>Site</a> | <a href='http://twitter.com/".$user->screen_name."'>Twitter: @".$user->screen_name."</a></p>";
+			$html .= "<div class='tweester_div'>";
+			$html .= "<img src='".$user->profile_image_url."' class='tweester_img'>";
+			$html .= "<p class='tweester_name'>".$user->name."</p>";
+			$html .= "<p class='tweester_bio'>".$user->description."</p>";
+			$html .= "<p class='tweester_url'><a href='".$user->url."'>Site</a> | <a href='http://twitter.com/".$user->screen_name."'>Twitter: @".$user->screen_name."</a></p>";
 			$html .= "</div>";
 			
 		}
@@ -171,7 +171,7 @@ class TwePort
 	
 	public function executeSearch()
 	{
-		$url = "http://search.twitter.com/search.json?q=".urlencode(get_option('tweport_query'));
+		$url = "http://search.twitter.com/search.json?q=".urlencode(get_option('tweester_query'));
 		
 		$searchRes = wp_remote_get($url);
 
@@ -193,7 +193,6 @@ class TwePort
 			}
 		}
 		
-		file_put_contents('temp.txt', time());
 	}
 	
 	public function getUserData($username)

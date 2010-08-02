@@ -1,0 +1,7 @@
+.tweester_div{ margin: 0 5px 10px 0; float:left; width:45%; height: 55px; }
+
+.tweester_img { float: left; padding-right: 10px;}
+.tweester_name { font-size: 110%; font-weight: bold;  margin:0; }
+.tweester_bio {margin: 0px; margin-top: -5px; padding: 0px; font-size: 75%; float:right; display:none; }
+.tweester_url {margin: 0px; margin-top: -20px; font-size: 80%; }
+.tweester_url A{text-decoration: none; } 
