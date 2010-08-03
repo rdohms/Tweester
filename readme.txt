@@ -32,3 +32,5 @@ e.g.
 
 * Implement exclusion list for users
 * Update interval select
+* New OO structure
+* Autoloading inside plugin
