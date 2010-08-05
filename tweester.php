@@ -3,7 +3,7 @@
 Plugin Name: Tweester
 Plugin URI: --
 Description: This plugin allows you to show a page of people who supported your cause on twitter.
-Version: 0.1
+Version: 0.2
 Author: Rafael Dohms
 Author URI: http://www.rafaeldohms.com.br
 License: CC

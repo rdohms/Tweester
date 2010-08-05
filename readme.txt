@@ -20,7 +20,7 @@ e.g.
 
 1. Upload and unzip in `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place correct tags in your pages
+1. Place correct tags in your pages (See settings page for instructions)
 
 == Changelog ==
 
@@ -28,9 +28,11 @@ e.g.
 * Search functionality
 * ShortCode List functionality
 
+= 0.2 =
+* Possible to exclude users from list
+* New internal structure
+* Force update of authors
+
 == To Do ==
 
-* Implement exclusion list for users
-* Update interval select
-* New OO structure
-* Autoloading inside plugin
+See: http://github.com/rdohms/Tweester/issues
