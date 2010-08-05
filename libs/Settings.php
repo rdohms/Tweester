@@ -91,12 +91,14 @@ class Tweester_Settings
 
     /**
      * Render the HTML for the Cron Section
-     * @todo fix hardcoded reference to blog URL
      */
     public function renderCronSection()
     {
+        global $pagenow, $plugin_page;
+        $forceUrl = $pagenow . "?page=" . $plugin_page . "&exec_action=run_update";
+
         echo '<p>Tweester schedules itself to be executed every hour, using WordPress\' built-in scheduling. If needed you can for a DB update using the button below.</p>';
-        echo '<p><a href="http://wp.macdohms/wp-admin/options-general.php?page=tweester/tweester.php&exec_action=run_update">Force update</a></p>';
+        echo '<p><a href="'.$forceUrl.'">Force update</a></p>';
     }
 
     /**
@@ -135,7 +137,7 @@ class Tweester_Settings
             default:
                 $msg = null;
         }
-    
+
         return $msg;
     }
 

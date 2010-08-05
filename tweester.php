@@ -67,7 +67,7 @@ class Tweester
     public function __construct()
     {
         //Define var for global use
-        $this->pluginPath = get_option('siteurl')."/wp-content/plugins/".dirname(plugin_basename(TWEESTER_MAINFILE));
+        $this->pluginPath = plugins_url()."/".dirname(plugin_basename(TWEESTER_MAINFILE));
         
         //Call dependent Objects
         $this->settingsManager = new Tweester_Settings($this);
