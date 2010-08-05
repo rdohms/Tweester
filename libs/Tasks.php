@@ -67,6 +67,21 @@ class Tweester_Tasks
     }
 
     /**
+     * Removes newly excluded authors from database upon filed update
+     */
+    public function removeExcludedAuthors()
+    {
+        //Get list of excludes
+        $excludes = $this->coreManager->getSettingsManager()->getOption('excludes')->getValue();
+        $excludedArray = explode(',', $excludes);
+        $excludedArray = array_map('trim', $excludedArray);
+
+        $query = "DELETE FROM ".$this->coreManager->getDbManager()->getTableNameFor('authors')." WHERE twitter IN ('".implode("','", $excludedArray)."')";
+
+        $this->coreManager->getDbManager()->query($query);
+    }
+
+    /**
      * Registers cron job hooks to be used by the plugin
      */
     public static function addCronHooks()

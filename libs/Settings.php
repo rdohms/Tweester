@@ -68,8 +68,8 @@ class Tweester_Settings
      */
     public function addFields()
     {
-        $this->configFields['query'] = new Tweester_Settings_Option_Query(self::SECTION_SEARCH);
-        $this->configFields['excludes'] = new Tweester_Settings_Option_Excludes(self::SECTION_SEARCH);
+        $this->configFields['query'] = new Tweester_Settings_Option_Query(self::SECTION_SEARCH, $this->coreManager);
+        $this->configFields['excludes'] = new Tweester_Settings_Option_Excludes(self::SECTION_SEARCH, $this->coreManager);
     }
 
     /**

@@ -23,16 +23,28 @@ abstract class Tweester_Settings_Option
     protected $label;
 
     /**
+     * @var Tweester
+     */
+    protected $coreManager;
+
+    /**
      * Registers and builds the option and in which section it should be
      * @param string $section
      */
-    public function __construct($section)
+    public function __construct($section, $coreManager)
     {
+
+        //Get Core Manager
+        $this->coreManager = $coreManager;
+
         //Register field Callback and Label
         add_settings_field($this->fieldName, $this->label, array($this, 'render'), TWEESTER_MAINFILE, $section);
         
         //Register field for POST processing
         register_setting(TWEESTER_MAINFILE, $this->fieldName);
+
+        //Register on update Hook
+        add_action('update_option_'.$this->fieldName, array($this, 'onUpdate'));
     }
 
     /**
@@ -50,7 +62,11 @@ abstract class Tweester_Settings_Option
      * @abstract
      */
     abstract function render();
-    
+
+    /**
+     * Executes needed actions when option is updated
+     */
+    abstract function onUpdate();
 }
 
 
