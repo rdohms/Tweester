@@ -36,6 +36,15 @@ abstract class Tweester_Settings_Option
     }
 
     /**
+     * Get valu from DB
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return get_option($this->fieldName, null);
+    }
+
+    /**
      * Renders form input
      *
      * @abstract

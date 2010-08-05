@@ -36,14 +36,24 @@ class Tweester_Tasks
      */
     public function updateAuthors()
     {
-        $results = Tweester_Twitter::getSearchResults(get_option('tweester_query'));
-        
+        $results = Tweester_Twitter::getSearchResults($this->coreManager->getSettingsManager()->getOption('query')->getValue());
+
+        //Get list of excludes
+        $excludes = $this->coreManager->getSettingsManager()->getOption('excludes')->getValue();
+        $excludedArray = explode(',', $excludes);
+        $excludedArray = array_map('trim', $excludedArray);
+
         if ($results != false) {
             //Process, store supporters
             foreach($results as $tweet){
                 //Get Username
                 $username = $tweet->from_user;
-                
+
+                //Skip if in excluded
+                if (in_array($username, $excludedArray)) {
+                    continue;
+                }
+
                 //Check if already in base
                 $data = $this->coreManager->getDbManager()->get_row("SELECT * FROM ".$this->coreManager->getDbManager()->getTableNameFor('authors')." WHERE twitter = '".$username."'");
 

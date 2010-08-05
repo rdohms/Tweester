@@ -68,8 +68,8 @@ class Tweester_Settings
      */
     public function addFields()
     {
-        $this->configFields[] = new Tweester_Settings_Option_Query(self::SECTION_SEARCH);
-        $this->configFields[] = new Tweester_Settings_Option_Excludes(self::SECTION_SEARCH);
+        $this->configFields['query'] = new Tweester_Settings_Option_Query(self::SECTION_SEARCH);
+        $this->configFields['excludes'] = new Tweester_Settings_Option_Excludes(self::SECTION_SEARCH);
     }
 
     /**
@@ -137,6 +137,20 @@ class Tweester_Settings
         }
     
         return $msg;
+    }
+
+    /**
+     * Gets a Option object
+     * @param string $name
+     * @return Tweester_Settings_Option
+     */
+    public function getOption($name)
+    {
+        if (array_key_exists($name, $this->configFields)){
+            return $this->configFields[$name];
+        } else {
+            return false;
+        }
     }
 }
 
