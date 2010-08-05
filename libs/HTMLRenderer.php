@@ -24,7 +24,7 @@ class Tweester_HTMLRenderer
             foreach($list as $user){
 
                 $html .= "<div class='tweester_div'>";
-                $html .= "<img src='".$user->profile_image_url."' class='tweester_img'>";
+                $html .= "<img src='".$user->profile_image_url."' class='tweester_img' width=48 height=48>";
                 $html .= "<p class='tweester_name'>".$user->name."</p>";
                 $html .= "<p class='tweester_bio'>".$user->description."</p>";
                 $html .= "<p class='tweester_url'><a href='".$user->url."'>Site</a> | <a href='http://twitter.com/".$user->screen_name."'>Twitter: @".$user->screen_name."</a></p>";
