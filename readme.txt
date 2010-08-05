@@ -4,9 +4,9 @@ Donate link: http://www.rafaeldohms.com.br
 Tags: twitter, page, list, search
 Requires at least: 2.5
 Tested up to: 3
-Stable tag: 0.1
+Stable tag: 0.2
 
-This plugin allows you to show a list of twitter users who tweeted a selected text. It can be used to list people who support your cause for example and display them in a WP page.
+This plugin allows you to show a list of twitter users who tweeted a selected text. It can be used to list people who support your cause for example.
 
 == Description ==
 

@@ -1,8 +1,21 @@
 <?php
-
+/**
+ * ShortCode Management Class
+ *
+ * This class wraps and handles all the shortcode tags used by the plugin using
+ * the shortcode API in wordpress (http://codex.wordpress.org/Shortcode_API)
+ *
+ * @package Tweester
+ * @subpackage ShortCode
+ * @link http://codex.wordpress.org/Shortcode_API
+ * @author Rafael Dohms
+ */
 class Tweester_ShortCode
 {
 
+    /**
+     * @var Tweester_DB
+     */
     private $dbManager;
     
     /**
@@ -12,21 +25,29 @@ class Tweester_ShortCode
     private $coreManager;
 
     /**
-     *
+     * Registers shorcode tags
+     * 
      * @param Tweester $coreManager
      */
     public function __construct($coreManager)
     {
         //Set CoreManager
         $this->coreManager = $coreManager;
-
         $this->dbManager = $this->coreManager->getDbManager();
         
         //Register our shortcode tags
         add_shortcode('tweester_list', array($this, 'authorList'));
         
     }
-    // [tweester_list foo="foo-value"]
+
+    /**
+     * Renders a list of authors.
+     * Usage:
+     *   add [tweester_list] to post or page
+     *
+     * @param array $atts
+     * @return string
+     */
     public function authorList($atts)
     {
         //extract(shortcode_atts(array('foo' => 'something','bar' => 'something else'), $atts));
@@ -47,7 +68,16 @@ class Tweester_ShortCode
         return $html;
 
     }
-    
+
+    /**
+     * Retrieves User Data.
+     *
+     * Thie method first checks the local cache database and if needed calls
+     * twitter for more information
+     *
+     * @param string $username
+     * @return stdClass
+     */
     private function getUserData($username)
     {
         //Check cache

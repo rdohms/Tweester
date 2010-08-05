@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * Tasks Management Class
+ *
+ * This class wraps the plugin's tasks which are associated with cron jobs
+ *
+ * @package Tweester
+ * @subpackage Tasks
+ * @author Rafael Dohms
+ */
 class Tweester_Tasks
 {
     /**
@@ -8,6 +16,10 @@ class Tweester_Tasks
      */
     private $coreManager;
 
+    /**
+     * Registers actions to the available cron hooks
+     * @param Tweester $coreManager
+     */
     public function __construct($coreManager)
     {
         //Set CoreManager
@@ -17,7 +29,11 @@ class Tweester_Tasks
         add_action("tweester_searcher", array($this, 'updateAuthors'));
         
     }
-    
+
+    /**
+     * Updates the Authors list executing a Twitter search for the parameters
+     * configured
+     */
     public function updateAuthors()
     {
         $results = Tweester_Twitter::getSearchResults(get_option('tweester_query'));
@@ -40,6 +56,9 @@ class Tweester_Tasks
         }
     }
 
+    /**
+     * Registers cron job hooks to be used by the plugin
+     */
     public static function addCronHooks()
     {
         //Call Scheduling

@@ -1,8 +1,22 @@
 <?php
-
+/**
+ * Twitter Class
+ *
+ * This class wraps all of the communication with twitter effectively executing
+ * all the API calls
+ *
+ * @package Tweester
+ * @subpackage Twitter
+ * @author Rafael Dohms
+ */
 class Tweester_Twitter
 {
-	
+	/**
+         * Retrieves data about selected user
+         *
+         * @param string $username
+         * @return stdClass
+         */
 	public static function getUserData($username)
 	{
 		$url = "http://twitter.com/users/show.json?screen_name=".$username;
@@ -21,7 +35,13 @@ class Tweester_Twitter
 		
 		return false;
 	}
-	
+
+        /**
+         * Executes a search agains the Twitter API
+         *
+         * @param string $query
+         * @return stdClass|false
+         */
 	public static function getSearchResults($query)
 	{
 		$url = "http://search.twitter.com/search.json?q=".urlencode($query);
