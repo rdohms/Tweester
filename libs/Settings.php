@@ -19,6 +19,8 @@ class Tweester_Settings
     const SECTION_TAG = 'tweester_section_tag';
     const SECTION_CRON = 'tweester_section_cron';
 
+    const SETTINGS_GROUP = 'tweester_options';
+
     /**
      * Central Core Manager
      * @var Tweester

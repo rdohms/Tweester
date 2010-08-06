@@ -41,7 +41,7 @@ abstract class Tweester_Settings_Option
         add_settings_field($this->fieldName, $this->label, array($this, 'render'), TWEESTER_MAINFILE, $section);
         
         //Register field for POST processing
-        register_setting(TWEESTER_MAINFILE, $this->fieldName);
+        register_setting(Tweester_Settings::SETTINGS_GROUP, $this->fieldName);
 
         //Register on update Hook
         add_action('update_option_'.$this->fieldName, array($this, 'onUpdate'));

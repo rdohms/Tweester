@@ -64,7 +64,7 @@ class Tweester_HTMLRenderer
         echo 'Configuration for the Tweester plugin';
         echo '<form action="options.php" method="post">';
 
-        settings_fields(TWEESTER_MAINFILE);
+        settings_fields(Tweester_Settings::SETTINGS_GROUP);
         do_settings_sections(TWEESTER_MAINFILE);
 
         echo '<p class="submit"><input type="submit" name="submit" class="button-primary" value="Save Changes" /></p>';

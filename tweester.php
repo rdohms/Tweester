@@ -18,7 +18,7 @@ require_once('libs/HTMLRenderer.php');
 require_once('libs/Twitter.php');
 
 //Define constants for use
-define('TWEESTER_MAINFILE', __FILE__);
+define('TWEESTER_MAINFILE', plugin_basename(__FILE__));
 
 //Register initialization and activation hooks
 register_activation_hook( TWEESTER_MAINFILE, array('Tweester', 'activateSelf') );
