@@ -10,7 +10,12 @@ This plugin allows you to show a list of twitter users who tweeted a selected te
 
 == Description ==
 
-This plugin allows you to show a list of twitter users who tweeted a selected text. It can be used to list people who support your cause for example and display them in a WP page.
+This plugin allows you to build a list of twitter users who tweeted a selected text and display it in a page on your blog.
+
+Say for instance you are working with a charity, let's say Charity:Water and you want to show a list of people who have been speaking about it on twitter. You can go ahead and create a query based on "#charity:water" for example.
+The plugin will then search for people who have tweeted this and begin building a list of them. By adding a tag to you page the plugin will then render a pretty list of all users, their pictures a links back to their twitter accounts.
+
+This can be use in various situations, it only depends on how creative you get with your queries.
 
 == Installation ==
 
@@ -37,6 +42,7 @@ e.g.
 * Better CSS rules and HTML in list
 * More information in settings page about scheduled updates
 * Option to clear authors table
+* Cache expiration in 15 days (refreshes user data)
 
 == To Do ==
 
