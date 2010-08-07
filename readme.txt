@@ -2,9 +2,9 @@
 Contributors: rdohms
 Donate link: http://www.rafaeldohms.com.br
 Tags: twitter, page, list, search
-Requires at least: 2.5
-Tested up to: 3
-Stable tag: 0.2.1
+Requires at least: 2.7
+Tested up to: 3.0.1
+Stable tag: 0.3
 
 This plugin allows you to show a list of twitter users who tweeted a selected text. It can be used to list people who support your cause for example.
 
@@ -32,6 +32,11 @@ e.g.
 * Possible to exclude users from list
 * New internal structure
 * Force update of authors
+
+= 0.3 =
+* Better CSS rules and HTML in list
+* More information in settings page about scheduled updates
+* Option to clear authors table
 
 == To Do ==
 

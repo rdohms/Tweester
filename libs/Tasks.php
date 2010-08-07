@@ -85,6 +85,15 @@ class Tweester_Tasks
     }
 
     /**
+     * Removes all authors currently in database
+     */
+    public function clearAuthors()
+    {
+        $query = "DELETE FROM ".$this->coreManager->getDbManager()->getTableNameFor('authors');
+        $this->coreManager->getDbManager()->query($query);
+    }
+
+    /**
      * Registers cron job hooks to be used by the plugin
      */
     public static function addCronHooks()

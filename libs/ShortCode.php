@@ -80,13 +80,19 @@ class Tweester_ShortCode
      */
     private function getUserData($username)
     {
-        //Check cache
-        $data = $this->dbManager->get_row("SELECT * FROM ".$this->dbManager->getTableNameFor('user_data_cache')." WHERE twitter = '".$username."'");
+        $reCacheCutoff = new DateTime();
+        $reCacheCutoff->modify("-15 days");
 
-        if ($data === null){
+        //Check cache
+        $data = $this->dbManager->get_row("SELECT *, DATE_FORMAT(cached_on, '%Y%m%d%h%i%s') AS cacheint FROM ".$this->dbManager->getTableNameFor('user_data_cache')." WHERE twitter = '".$username."'");
+
+        if ($data === null || $data->cacheint < $reCacheCutoff->format('YmdHis')){
             //Get From Twitter
             $twData = Tweester_Twitter::getUserData($username);
 
+            //Clear previous cache
+            $this->dbManager->query("DELETE FROM ".$this->coreManager->getDbManager()->getTableNameFor('user_data_cache'). " WHERE twitter = '".$username."'");
+            
             //Cache
             $this->dbManager->insert( $this->dbManager->getTableNameFor('user_data_cache'), array( 'twitter' => $username, 'data' => json_encode($twData), 'cached_on' => date('Y-m-d H:i:s') ), array( '%s', '%s', '%s' ) );
             

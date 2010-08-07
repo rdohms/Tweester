@@ -62,8 +62,8 @@ class Tweester_Settings
     public function registerSections()
     {
         add_settings_section(self::SECTION_SEARCH, 'Search and List', array($this, 'renderSearchSection'), TWEESTER_MAINFILE);
-        add_settings_section(self::SECTION_TAG, 'Inserting Tag', array($this, 'renderTagSection'), TWEESTER_MAINFILE);
         add_settings_section(self::SECTION_CRON, 'Updating Author list', array($this, 'renderCronSection'), TWEESTER_MAINFILE);
+        add_settings_section(self::SECTION_TAG, 'Inserting Tag', array($this, 'renderTagSection'), TWEESTER_MAINFILE);
     }
 
     /**
@@ -99,7 +99,6 @@ class Tweester_Settings
     public function renderCronSection()
     {
         global $pagenow, $plugin_page;
-        $forceUrl = $pagenow . "?page=" . $plugin_page . "&exec_action=run_update";
 
         echo '<p>Tweester schedules itself to be executed every hour, using 
             WordPress\' built-in scheduling. You can follow updates with the
@@ -109,11 +108,21 @@ class Tweester_Settings
         //Cron run time
         $ctime = $this->getOption('cron_run_time')->getValue();
         echo '<p>Supporter list was last updated at: <b>'.date('d/m/Y H:i:s', $ctime).'</b></p>';
-        
 
-        echo '<p><a href="'.$forceUrl.'">Force update</a></p>';
+        //Action buttons
+        echo "<p>";
 
+        //Force Update
+        $forceUrl = $pagenow . "?page=" . $plugin_page . "&exec_action=run_update";
+        echo '<a href="'.$forceUrl.'" class="button-primary">Force update</a>';
 
+        echo "&nbsp;&nbsp;";
+
+        //Clear User Table
+        $clearUrl = $pagenow . "?page=" . $plugin_page . "&exec_action=clear_authors";
+        echo '<a href="'.$clearUrl.'" class="button-primary">Clear indexed supporters</a>';
+
+        echo "</p>";
 
     }
 
@@ -149,6 +158,10 @@ class Tweester_Settings
             case 'run_update':
                 $this->coreManager->getTaskManager()->updateAuthors();
                 $msg = "Authors Updated";
+            break;
+            case 'clear_authors':
+                $this->coreManager->getTaskManager()->clearAuthors();
+                $msg = "Current Authors removed.";
             break;
             default:
                 $msg = null;
