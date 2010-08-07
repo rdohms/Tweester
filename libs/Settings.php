@@ -2,6 +2,7 @@
 include('Settings/Option.php');
 include('Settings/Option/Query.php');
 include('Settings/Option/Excludes.php');
+include('Settings/Option/CronRunTime.php');
 
 /**
  * Settings Management Class
@@ -72,6 +73,7 @@ class Tweester_Settings
     {
         $this->configFields['query'] = new Tweester_Settings_Option_Query(self::SECTION_SEARCH, $this->coreManager);
         $this->configFields['excludes'] = new Tweester_Settings_Option_Excludes(self::SECTION_SEARCH, $this->coreManager);
+        $this->configFields['cron_run_time'] = new Tweester_Settings_Option_CronRunTime(self::SECTION_CRON, $this->coreManager);
     }
 
     /**
@@ -99,8 +101,20 @@ class Tweester_Settings
         global $pagenow, $plugin_page;
         $forceUrl = $pagenow . "?page=" . $plugin_page . "&exec_action=run_update";
 
-        echo '<p>Tweester schedules itself to be executed every hour, using WordPress\' built-in scheduling. If needed you can for a DB update using the button below.</p>';
+        echo '<p>Tweester schedules itself to be executed every hour, using 
+            WordPress\' built-in scheduling. You can follow updates with the
+            information below and force an out-of-schedule update using the
+            commands below.</p>';
+
+        //Cron run time
+        $ctime = $this->getOption('cron_run_time')->getValue();
+        echo '<p>Supporter list was last updated at: <b>'.date('d/m/Y H:i:s', $ctime).'</b></p>';
+        
+
         echo '<p><a href="'.$forceUrl.'">Force update</a></p>';
+
+
+
     }
 
     /**

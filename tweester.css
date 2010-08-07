@@ -1,7 +1,8 @@
-.tweester_div{ margin: 0 5px 10px 0; float:left; width:45%; height: 55px; }
-
-.tweester_img { float: left; padding-right: 10px;}
-.tweester_name { font-size: 110%; font-weight: bold;  margin:0; }
-.tweester_bio {margin: 0px; margin-top: -5px; padding: 0px; font-size: 75%; float:right; display:none; }
-.tweester_url {margin: 0px; margin-top: -20px; font-size: 80%; }
-.tweester_url A{text-decoration: none; } 
+#tweester_list {}
+#tweester_list .user{ margin: 0 5px 10px 0; float:left; width:45%; height: 55px; }
+#tweester_list .avatar { float: left; padding-right: 10px; max-width: 48px; width: 48px; height: 48px;}
+#tweester_list .name { font-size: 110%; font-weight: bold;  margin:0; }
+#tweester_list .bio {margin: 0px; margin-top: -5px; padding: 0px; font-size: 75%; float:right; display:none; }
+#tweester_list .url {margin: 0px; margin-top: 2px; font-size: 80%; }
+#tweester_list .url A{text-decoration: none; }
+#tweester_list .none{ margin: 10px; font-style: italic; color: #606060; }

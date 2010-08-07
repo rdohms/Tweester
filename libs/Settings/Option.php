@@ -57,6 +57,15 @@ abstract class Tweester_Settings_Option
     }
 
     /**
+     * Save value into DB
+     * @param mixed $value
+     */
+    public function setValue($value)
+    {
+        update_option($this->fieldName, $value);
+    }
+
+    /**
      * Renders form input
      *
      * @abstract

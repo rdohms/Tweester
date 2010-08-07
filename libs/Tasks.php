@@ -64,6 +64,9 @@ class Tweester_Tasks
                 
             }
         }
+
+        //Update execution time
+        $this->coreManager->getSettingsManager()->getOption('cron_run_time')->setValue(time());
     }
 
     /**
