@@ -36,7 +36,7 @@ class Tweester_Tasks
      */
     public function updateAuthors()
     {
-        $results = Tweester_Twitter::getSearchResults($this->coreManager->getSettingsManager()->getOption('query')->getValue());
+        $results = Tweester_Twitter::getMaxSearchResults($this->coreManager->getSettingsManager()->getOption('query')->getValue(), 15);
 
         //Get list of excludes
         $excludes = $this->coreManager->getSettingsManager()->getOption('excludes')->getValue();
